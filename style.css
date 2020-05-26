@@ -1,0 +1,20 @@
+main {
+    display: flex;
+    justify-content: space-around;
+}
+
+form {
+    border-style: solid;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 30%;
+}
+
+span.pattern {
+    width: 30%;
+    padding: 10px;
+    border-style: solid;
+    border-color: black;
+    border-width: 3px;
+}
