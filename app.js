@@ -1,3 +1,4 @@
+const backEndURL = 'http://localhost:4000'
 const welcomeSection = document.getElementById('welcome')
 const hatPatternButton = document.getElementById('hat-pattern-button')
 const form = document.getElementById('hat-pattern-form')
@@ -8,6 +9,7 @@ const createUserForm = document.getElementById('create-new-user')
 const patternList = document.getElementById('pattern-list')
 const navbar = document.getElementById('navbar')
 const saveButton = document.getElementById('save-button')
+const viewPatternsButton = document.getElementById('view-patterns')
 
 welcome()
 function welcome() {
@@ -64,6 +66,9 @@ function displayPatterns(patterns){
 function displayPattern(pattern) {
     const $li = document.createElement('li')
     $li.innerHTML = pattern.content 
+    const deleteButton = document.createElement('button')
+    deleteButton.textContent = 'Delete this pattern from saves'
+    $li.append(deleteButton)
     patternList.append($li)
 }
 
@@ -148,7 +153,12 @@ function savePattern() {
         headers: {'content-type': 'application/JSON', 'Authorization': `Bearer ${localStorage.getItem('token')}`},
         body: JSON.stringify(pattern)
     }).then(resp => resp.json())
-    .then(console.log)
+    .then(saveSuccess)
+}
+
+function saveSuccess() {
+    saveButton.textContent = 'Pattern saved'
+    saveButton.disabled = true
 }
 
 function writeHatBrim(hat){
@@ -190,4 +200,18 @@ function writeHatDecrease(hat){
     decreaseString = decreases.join(" ")
     const decreasePattern = `<b> Decreases: </b> ${decreaseString} ${stitchesremaining} stitches remaining. Break yarn and thread through remaining stitches. Weave in ends.`
     return decreasePattern
+}
+
+viewPatternsButton.addEventListener('click', getPatterns)
+
+function getPatterns() {
+    patternBox.style.display = 'none'
+    saveButton.style.display = 'none'
+    
+    fetch(`${backEndURL}/patterns`, {
+        headers: {'Authorization': `Bearer ${localStorage.getItem('token')}`}
+    }).then(resp => resp.json())
+    .then(patterns => displayPattern(patterns[patterns.length - 1]))
+    console.log(patternList)
+    patternList.style.display = 'block'
 }
