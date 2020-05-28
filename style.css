@@ -1,20 +1,18 @@
-main {
-    display: flex;
-    justify-content: space-around;
-}
+body {
+  font: 100% Helvetica, sans-serif; }
 
-form {
-    border-style: solid;
-    padding: 10px;
+#welcome {
+  display: flex;
+  flex-direction: row;
+  padding: 50px; }
+  #welcome .container {
     display: flex;
     flex-direction: column;
-    width: 30%;
-}
+    border: black;
+    padding: 50px;
+    justify-content: center; }
+  #welcome form {
+    display: flex;
+    flex-direction: column; }
 
-span.pattern {
-    width: 30%;
-    padding: 10px;
-    border-style: solid;
-    border-color: black;
-    border-width: 3px;
-}
+/*# sourceMappingURL=style.css.map */
