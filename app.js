@@ -1,5 +1,5 @@
 const backEndURL = 'http://localhost:4000'
-const welcomeSection = document.getElementById('welcome')
+const frontPage = document.getElementById('front-page')
 const hatPatternButton = document.getElementById('hat-pattern-button')
 const form = document.getElementById('hat-pattern-form')
 const patternBox = document.getElementById('pattern-box')
@@ -7,21 +7,24 @@ const patternSpan = document.querySelector('.pattern')
 const loginForm = document.getElementById('login')
 const createUserForm = document.getElementById('create-new-user')
 const patternList = document.getElementById('pattern-list')
+const patternHeader = document.getElementById('pattern-header')
 const navbar = document.getElementById('navbar')
 const saveButton = document.getElementById('save-button')
 const viewPatternsButton = document.getElementById('view-patterns')
+const logoutButton = document.getElementById('logout')
+
+loginForm.addEventListener('submit', loginUser)
+createUserForm.addEventListener('submit', createUser)
 
 welcome()
 function welcome() {
     form.style.display = 'none'
     patternBox.style.display = 'none'
     patternList.style.display = 'none'
+    patternHeader.style.display = 'none'
     navbar.style.display = 'none'
     saveButton.style.display = 'none'
 }
-
-loginForm.addEventListener('submit', loginUser)
-createUserForm.addEventListener('submit', createUser)
 
 function loginUser(){
     event.preventDefault()
@@ -38,20 +41,26 @@ function loginUser(){
         body: JSON.stringify(user)
     })
     .then(resp => resp.json())
-    .then(response => handlePatterns(response))
+    .then(response => {
+        if(response.error){
+            alert(response.error)
+        }else {
+            handlePatterns(response)
+        }
+    })
     loginForm.reset()
 }
 
 function handlePatterns(response) {
-    console.log(response)
     localStorage.setItem('token', response.token)
     displayPatterns(response.patterns)
 }
 
 function displayPatterns(patterns){
-    welcomeSection.style.display = 'none'
-    patternList.style.display = 'block'
-    navbar.style.display = 'block'
+    frontPage.style.display = 'none'
+    patternList.style.display = 'flex'
+    patternHeader.style.display = 'flex'
+    navbar.style.display = 'flex'
     if(patterns.length == 0){
         const $li = document.createElement('li')
         $li.textContent = 'No patterns to display'
@@ -66,10 +75,19 @@ function displayPatterns(patterns){
 function displayPattern(pattern) {
     const $li = document.createElement('li')
     $li.innerHTML = pattern.content 
+    $li.setAttribute('id', pattern.id)
     const deleteButton = document.createElement('button')
-    deleteButton.textContent = 'Delete this pattern from saves'
+    deleteButton.textContent = 'Remove this pattern from saves'
+    deleteButton.setAttribute('class', 'button-style')
     $li.append(deleteButton)
     patternList.append($li)
+    deleteButton.addEventListener('click', removePattern)
+}
+
+function removePattern() {
+    const patternId = event.target.parentNode.id 
+    event.target.parentNode.remove()
+    fetch(`${backEndURL}/patterns/${patternId}`, {method: 'DELETE'})
 }
 
 function createUser(){
@@ -99,8 +117,9 @@ function createUser(){
 hatPatternButton.addEventListener('click', renderForm)
 
 function renderForm(){
+    patternHeader.style.display = 'none'
     patternList.style.display = 'none'
-    form.style.display = 'block'
+    form.style.display = 'flex'
 }
 
 form.addEventListener('submit', createHatPattern)
@@ -129,7 +148,7 @@ function createHatPattern() {
         stitches: castOnStitches
     }
     writePattern(hat)
-    patternBox.style.display = 'block'
+    patternBox.style.display = 'flex'
     saveButton.style.display = 'block'
     form.style.display = 'none'
     console.log(saveButton)
@@ -213,5 +232,12 @@ function getPatterns() {
     }).then(resp => resp.json())
     .then(patterns => displayPattern(patterns[patterns.length - 1]))
     console.log(patternList)
-    patternList.style.display = 'block'
+    patternHeader.style.display = 'flex'
+    patternList.style.display = 'flex'
+}
+
+logoutButton.addEventListener('click', logout)
+
+function logout() {
+    window.location.reload()
 }

@@ -10,42 +10,60 @@
     <title>Pattern Generator</title>
 </head>
 <body>
-    <header>
-        <nav id="navbar">
-            <h2>Pattern Generator</h2>
+    <header id="navbar">
+        <h2>Pattern Generator</h2>
+        <nav>
+            <ul class="nav-links">
+                <button id="view-patterns">View Patterns</button>
+                <button id="hat-pattern-button">Hat Pattern</button>
+                <button>Sweater Pattern</button>
+                <button>Sock Pattern</button>
+            </ul>
+            <!-- <h2>Pattern Generator</h2>
+            <button id="logout">Logout</button>
             <button id="view-patterns">View Patterns</button>
             <button id="hat-pattern-button">Hat Pattern</button>
             <button>Sweater Pattern</button>
-            <button>Sock Pattern</button>
+            <button>Sock Pattern</button> -->
         </nav>
+        <button id="logout">Logout</button>
     </header>
     <main>
-        <ul id="pattern-list">Patterns</ul>
-        <div id="welcome">
-            <div class="container">
-                <h2>Login</h2>
-                <form id="login">
-                    <input type="text" name="username" placeholder="Usernmae" required>
-                    <input type="password" name="password" placeholder="Password" required>
-                    <input type="submit" value="Login">
-                </form>
+        <section class="pattern-section">
+            <h1 id="pattern-header">Patterns</h1>
+            <ul id="pattern-list"></ul>
+        </section>
+        <div id="front-page">
+            <section id="title">
+                <h1>Knits Generator</h1>
+            </section>
+            <div id="welcome">
+                <div class="container">
+                    <h2>Login</h2>
+                    <form id="login">
+                        <input class="enter-text" type="text" name="username" placeholder="Username" required>
+                        <input class="enter-text" type="password" name="password" placeholder="Password" required>
+                        <input class="enter-button" type="submit" value="Login">
+                    </form>
+                </div>
+                <div class="container">
+                    <h2>New User</h2>
+                    <form id="create-new-user">
+                        <input class="enter-text" type="text" name="username" placeholder="Username" required>
+                        <input class="enter-text" type="password" name="password" placeholder="Password" required>
+                        <input class="enter-button" type="submit" value="Create new profile">
+                    </form>
+                </div>
             </div>
-            <div class="container">
-                <h2>Create a Proflie</h2>
-                <form id="create-new-user">
-                    <input type="text" name="username" placeholder="Username" required>
-                    <input type="password" name="password" placeholder="Password" required>
-                    <input type="submit" value="Create new profile">
-                </form>
-            </div>
-        </div>
+    </div>
+    <div id="center-form">
         <form id="hat-pattern-form">
                 <label for="gague-select">Gague</label>
-                <input id="gauge" required type="number" name="gauge" placeholder="stitches/inch">
+                <input class="enter-text" id="gauge" required type="number" name="gauge" placeholder="stitches/inch">
                 <label for="circumference">Circumference</label>
-                <input id="circumference" required type="number" name="circumference" placeholder="inches">
+                <input class="enter-text" id="circumference" required type="number" name="circumference" placeholder="inches">
                 <label for="length-of-brim">Desired Length of Brim</label>
-                <input id="length-of-brim" required type="number" name="length_of_brim" placeholder="inches">
+                <input class="enter-text" id="length-of-brim" required type="number" name="length_of_brim" placeholder="inches">
                 <label for="brim-style">Style of Brim</label>
                 <select required name="brim_style" id="brim_style">
                     <option value="stockinette">Stockinette</option>
@@ -54,16 +72,17 @@
                     <option value="two_by_two">Two by two rib</option>
                 </select>
                 <label for="length-of-body">Length of Body</label>
-                <input required id="length-of-body" type="number" name="length_of_body" placeholder="inches">
+                <input class="enter-text" required id="length-of-body" type="number" name="length_of_body" placeholder="inches">
                 <label for="body-style">Style of body</label>
                 <select required name="body_style" id="body-style">
                     <option value="stockinette">Stockinette</option>
                     <option value="cables">Cables</option>
                 </select>
-            <input type="submit" class="btn btn-info" value="Generate Pattern">
+            <input class="enter-button" type="submit" class="btn btn-info" value="Generate Pattern">
         </form>
+    </div>
         <span id="pattern-box"></span>
-        <button id="save-button">save this pattern</button>
+        <button class="button-style" id="save-button">save this pattern</button>
     </main>
 </body>
 </html>
