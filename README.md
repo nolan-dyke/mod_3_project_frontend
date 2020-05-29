@@ -11,7 +11,7 @@ This knitting pattern generator is a fullstack, one-week project. It was complet
 * HTML/CSS
 
 ## Video
-[Walkthrough](link)
+[Walkthrough](https://youtu.be/MUEmTA7dE8U)
 
 ## Setup
 This app requires the use of a Rails backend, the repository for which can be found [here](https://github.com/nolan-dyke/mod3_project_backend). Clone both this repository and the backend to your local machine. The backend comes equipped with all necessary gems, but the gems must be installed locally. This can be done by running:
